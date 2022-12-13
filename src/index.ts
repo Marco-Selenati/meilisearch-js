@@ -1,9 +1,7 @@
 export * from './types'
 export * from './errors'
 export * from './indexes'
-export * from './enqueued-task'
-export * from './task'
-import { MeiliSearch } from './clients/node-client'
+import { MeiliSearch } from './clients/browser-client'
 
 export { MeiliSearch }
 export default MeiliSearch

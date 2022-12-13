@@ -6,10 +6,6 @@ class MeiliSearchError extends Error {
     Object.setPrototypeOf(this, MeiliSearchError.prototype)
 
     this.name = 'MeiliSearchError'
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MeiliSearchError)
-    }
   }
 }
 

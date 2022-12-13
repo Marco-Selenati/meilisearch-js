@@ -1,4 +1,3 @@
-import 'cross-fetch/polyfill'
 import { FetchError } from '../types'
 
 class MeiliSearchCommunicationError extends Error {
@@ -36,10 +35,6 @@ class MeiliSearchCommunicationError extends Error {
         `request to ${url} failed, reason: connect ECONNREFUSED`
       )
       this.stack = this.stack?.replace('Not Found', `Not Found: ${url}`)
-    } else {
-      if (Error.captureStackTrace) {
-        Error.captureStackTrace(this, MeiliSearchCommunicationError)
-      }
     }
   }
 }

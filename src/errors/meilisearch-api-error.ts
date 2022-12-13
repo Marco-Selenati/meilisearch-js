@@ -20,10 +20,6 @@ const MeiliSearchApiError = class extends Error {
     this.link = error.link
     this.message = error.message
     this.httpStatus = status
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MeiliSearchApiError)
-    }
   }
 }
 export { MeiliSearchApiError }

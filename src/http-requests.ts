@@ -1,5 +1,3 @@
-import 'cross-fetch/polyfill'
-
 import { Config, EnqueuedTaskObject } from './types'
 import { PACKAGE_VERSION } from './package-version'
 
@@ -166,70 +164,6 @@ class HttpRequests {
   ): Promise<any> {
     return await this.request({
       method: 'POST',
-      url,
-      body: data,
-      params,
-      config,
-    })
-  }
-
-  async put<T = any, R = EnqueuedTaskObject>(
-    url: string,
-    data?: T,
-    params?: { [key: string]: any },
-    config?: Record<string, any>
-  ): Promise<R>
-
-  async put(
-    url: string,
-    data?: any,
-    params?: { [key: string]: any },
-    config?: Record<string, any>
-  ): Promise<any> {
-    return await this.request({
-      method: 'PUT',
-      url,
-      body: data,
-      params,
-      config,
-    })
-  }
-
-  async patch(
-    url: string,
-    data?: any,
-    params?: { [key: string]: any },
-    config?: Record<string, any>
-  ): Promise<any> {
-    return await this.request({
-      method: 'PATCH',
-      url,
-      body: data,
-      params,
-      config,
-    })
-  }
-
-  async delete(
-    url: string,
-    data?: any,
-    params?: { [key: string]: any },
-    config?: Record<string, any>
-  ): Promise<EnqueuedTaskObject>
-  async delete<T>(
-    url: string,
-    data?: any,
-    params?: { [key: string]: any },
-    config?: Record<string, any>
-  ): Promise<T>
-  async delete(
-    url: string,
-    data?: any,
-    params?: { [key: string]: any },
-    config?: Record<string, any>
-  ): Promise<any> {
-    return await this.request({
-      method: 'DELETE',
       url,
       body: data,
       params,
