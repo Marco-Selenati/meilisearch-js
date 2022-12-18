@@ -1,4 +1,4 @@
-import { MeiliSearchErrorInfo } from '../types';
+import { MeiliSearchErrorInfo } from '../types.js';
 declare const MeiliSearchApiError: {
     new (error: MeiliSearchErrorInfo, status: number): {
         httpStatus: number;

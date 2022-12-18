@@ -1,4 +1,4 @@
-import { FetchError } from '../types'
+import { FetchError } from '../types.js'
 
 class MeiliSearchCommunicationError extends Error {
   statusCode?: number

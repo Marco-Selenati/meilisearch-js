@@ -1,6 +1,10 @@
-export * from './types';
-export * from './errors';
-import { Config, SearchResponse, SearchParams, EnqueuedTaskObject } from './types';
+export * from './types.js';
+import { httpErrorHandler, httpResponseErrorHandler } from './errors/http-error-handler.js';
+import { MeiliSearchApiError } from './errors/meilisearch-api-error.js';
+import { MeiliSearchCommunicationError } from './errors/meilisearch-communication-error.js';
+import { MeiliSearchError } from './errors/meilisearch-error.js';
+import { MeiliSearchTimeOutError } from './errors/meilisearch-timeout-error.js';
+import { Config, SearchResponse, SearchParams, EnqueuedTaskObject } from './types.js';
 export declare const PACKAGE_VERSION = "0.30.0";
 declare class HttpRequests {
     headers: Record<string, any>;
@@ -56,4 +60,9 @@ declare class MeiliSearch {
      */
     index<T extends Record<string, any>>(indexUid: string): Index<T>;
 }
+export { httpErrorHandler, httpResponseErrorHandler };
+export { MeiliSearchApiError };
+export { MeiliSearchCommunicationError };
+export { MeiliSearchError };
+export { MeiliSearchTimeOutError };
 export { MeiliSearch };

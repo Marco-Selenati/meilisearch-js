@@ -1,17 +1,19 @@
-export * from './types'
-export * from './errors'
+export * from './types.js'
+import {
+  httpErrorHandler,
+  httpResponseErrorHandler,
+} from './errors/http-error-handler.js'
+import { MeiliSearchApiError } from './errors/meilisearch-api-error.js'
+import { MeiliSearchCommunicationError } from './errors/meilisearch-communication-error.js'
+import { MeiliSearchError } from './errors/meilisearch-error.js'
+import { MeiliSearchTimeOutError } from './errors/meilisearch-timeout-error.js'
 
 import {
   Config,
   SearchResponse,
   SearchParams,
   EnqueuedTaskObject,
-} from './types'
-import {
-  MeiliSearchError,
-  httpResponseErrorHandler,
-  httpErrorHandler,
-} from './errors'
+} from './types.js'
 
 export const PACKAGE_VERSION = '0.30.0'
 
@@ -222,4 +224,9 @@ class MeiliSearch {
   }
 }
 
+export { httpErrorHandler, httpResponseErrorHandler }
+export { MeiliSearchApiError }
+export { MeiliSearchCommunicationError }
+export { MeiliSearchError }
+export { MeiliSearchTimeOutError }
 export { MeiliSearch }
