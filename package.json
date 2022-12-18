@@ -16,6 +16,7 @@
     "qdequele <quentin@meilisearch.com>"
   ],
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/bundles/meilisearch.esm.js",
