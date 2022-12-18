@@ -6,8 +6,6 @@
     "importHelpers": true,
     "removeComments": false,
     "declaration": true,
-    "declarationMap": true,
-    "declarationDir": "./dist/types",
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2020", "ESNext", "dom"],
     "target": "ES2020",
