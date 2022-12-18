@@ -1,4 +1,17 @@
-import { Task } from '../task';
+declare class Task {
+    indexUid: TaskObject['indexUid'];
+    status: TaskObject['status'];
+    type: TaskObject['type'];
+    uid: TaskObject['uid'];
+    canceledBy: TaskObject['canceledBy'];
+    details: TaskObject['details'];
+    error: TaskObject['error'];
+    duration: TaskObject['duration'];
+    startedAt: Date;
+    enqueuedAt: Date;
+    finishedAt: Date;
+    constructor(task: TaskObject);
+}
 export declare type Config = {
     host: string;
     apiKey?: string;
@@ -72,12 +85,12 @@ export declare type MatchesPosition<T> = Partial<Record<keyof T, Array<{
     start: number;
     length: number;
 }>>>;
-export declare type Hit<T = Record<string, any>> = T & {
+export declare type Hit<T extends Record<string, any>> = T & {
     _formatted?: Partial<T>;
     _matchesPosition?: MatchesPosition<T>;
 };
-export declare type Hits<T = Record<string, any>> = Array<Hit<T>>;
-export declare type SearchResponse<T = Record<string, any>> = {
+export declare type Hits<T extends Record<string, any>> = Array<Hit<T>>;
+export declare type SearchResponse<T extends Record<string, any>> = {
     hits: Hits<T>;
     processingTimeMs: number;
     facetDistribution?: FacetDistribution;
@@ -93,19 +106,19 @@ export declare type SearchResponse<T = Record<string, any>> = {
 export declare type FieldDistribution = {
     [field: string]: number;
 };
-declare type Fields<T = Record<string, any>> = Array<Extract<keyof T, string>> | Extract<keyof T, string>;
+declare type Fields<T extends Record<string, any>> = Array<Extract<keyof T, string>> | Extract<keyof T, string>;
 export declare type DocumentOptions = {
     primaryKey?: string;
 };
-export declare type DocumentsQuery<T = Record<string, any>> = ResourceQuery & {
+export declare type DocumentsQuery<T extends Record<string, any>> = ResourceQuery & {
     fields?: Fields<T>;
 };
-export declare type DocumentQuery<T = Record<string, any>> = {
+export declare type DocumentQuery<T extends Record<string, any>> = {
     fields?: Fields<T>;
 };
-export declare type Document<T = Record<string, any>> = T;
-export declare type Documents<T = Record<string, any>> = Array<Document<T>>;
-export declare type DocumentsResults<T = Record<string, any>> = ResourceResults<Documents<T>> & {};
+export declare type Document<T extends Record<string, any>> = T;
+export declare type Documents<T extends Record<string, any>> = Array<Document<T>>;
+export declare type DocumentsResults<T extends Record<string, any>> = ResourceResults<Documents<T>> & {};
 export declare type FilterableAttributes = string[] | null;
 export declare type DistinctAttribute = string | null;
 export declare type SearchableAttributes = string[] | null;

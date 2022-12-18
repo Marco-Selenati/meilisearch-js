@@ -4,7 +4,34 @@
 // Definitions: https://github.com/meilisearch/meilisearch-js
 // TypeScript Version: ^3.8.3
 
-import { Task } from '../task'
+class Task {
+  indexUid: TaskObject['indexUid']
+  status: TaskObject['status']
+  type: TaskObject['type']
+  uid: TaskObject['uid']
+  canceledBy: TaskObject['canceledBy']
+  details: TaskObject['details']
+  error: TaskObject['error']
+  duration: TaskObject['duration']
+  startedAt: Date
+  enqueuedAt: Date
+  finishedAt: Date
+
+  constructor(task: TaskObject) {
+    this.indexUid = task.indexUid
+    this.status = task.status
+    this.type = task.type
+    this.uid = task.uid
+    this.details = task.details
+    this.canceledBy = task.canceledBy
+    this.error = task.error
+    this.duration = task.duration
+
+    this.startedAt = new Date(task.startedAt)
+    this.enqueuedAt = new Date(task.enqueuedAt)
+    this.finishedAt = new Date(task.finishedAt)
+  }
+}
 
 export type Config = {
   host: string
@@ -117,14 +144,14 @@ export type MatchesPosition<T> = Partial<
   Record<keyof T, Array<{ start: number; length: number }>>
 >
 
-export type Hit<T = Record<string, any>> = T & {
+export type Hit<T extends Record<string, any>> = T & {
   _formatted?: Partial<T>
   _matchesPosition?: MatchesPosition<T>
 }
 
-export type Hits<T = Record<string, any>> = Array<Hit<T>>
+export type Hits<T extends Record<string, any>> = Array<Hit<T>>
 
-export type SearchResponse<T = Record<string, any>> = {
+export type SearchResponse<T extends Record<string, any>> = {
   hits: Hits<T>
   processingTimeMs: number
   facetDistribution?: FacetDistribution
@@ -146,7 +173,7 @@ export type FieldDistribution = {
  ** Documents
  */
 
-type Fields<T = Record<string, any>> =
+type Fields<T extends Record<string, any>> =
   | Array<Extract<keyof T, string>>
   | Extract<keyof T, string>
 
@@ -154,18 +181,18 @@ export type DocumentOptions = {
   primaryKey?: string
 }
 
-export type DocumentsQuery<T = Record<string, any>> = ResourceQuery & {
+export type DocumentsQuery<T extends Record<string, any>> = ResourceQuery & {
   fields?: Fields<T>
 }
 
-export type DocumentQuery<T = Record<string, any>> = {
+export type DocumentQuery<T extends Record<string, any>> = {
   fields?: Fields<T>
 }
 
-export type Document<T = Record<string, any>> = T
-export type Documents<T = Record<string, any>> = Array<Document<T>>
+export type Document<T extends Record<string, any>> = T
+export type Documents<T extends Record<string, any>> = Array<Document<T>>
 
-export type DocumentsResults<T = Record<string, any>> = ResourceResults<
+export type DocumentsResults<T extends Record<string, any>> = ResourceResults<
   Documents<T>
 > & {}
 
