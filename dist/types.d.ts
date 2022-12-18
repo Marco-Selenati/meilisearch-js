@@ -50,7 +50,7 @@ declare type Hit<T extends Record<string, any>> = T & {
     _formatted?: Partial<T>;
     _matchesPosition?: MatchesPosition<T>;
 };
-declare type Hits<T extends Record<string, any>> = Array<Hit<T>>;
+export declare type Hits<T extends Record<string, any>> = Array<Hit<T>>;
 export declare type SearchResponse<T extends Record<string, any>> = {
     hits: Hits<T>;
     processingTimeMs: number;

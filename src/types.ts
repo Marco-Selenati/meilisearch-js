@@ -79,7 +79,7 @@ type Hit<T extends Record<string, any>> = T & {
   _matchesPosition?: MatchesPosition<T>
 }
 
-type Hits<T extends Record<string, any>> = Array<Hit<T>>
+export type Hits<T extends Record<string, any>> = Array<Hit<T>>
 
 export type SearchResponse<T extends Record<string, any>> = {
   hits: Hits<T>
