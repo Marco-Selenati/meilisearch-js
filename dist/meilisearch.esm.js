@@ -1,171 +1,162 @@
-const S = {
-  ALL: "all",
-  LAST: "last"
-};
-var d = /* @__PURE__ */ ((e) => (e.TASK_SUCCEEDED = "succeeded", e.TASK_PROCESSING = "processing", e.TASK_FAILED = "failed", e.TASK_ENQUEUED = "enqueued", e))(d || {}), D = /* @__PURE__ */ ((e) => (e.INDEX_CREATION = "indexCreation", e.INDEX_UPDATE = "indexUpdate", e.INDEX_DELETION = "indexDeletion", e.DOCUMENTS_ADDITION_OR_UPDATE = "documentAdditionOrUpdate", e.DOCUMENT_DELETION = "documentDeletion", e.SETTINGS_UPDATE = "settingsUpdate", e.INDEXES_SWAP = "indexSwap", e.TASK_DELETION = "taskDeletion", e.SNAPSHOT_CREATION = "snapshotCreation", e.TASK_CANCELATION = "taskCancelation", e))(D || {}), r = /* @__PURE__ */ ((e) => (e.INDEX_CREATION_FAILED = "index_creation_failed", e.INDEX_ALREADY_EXISTS = "index_already_exists", e.INDEX_NOT_FOUND = "index_not_found", e.INVALID_INDEX_UID = "invalid_index_uid", e.INDEX_NOT_ACCESSIBLE = "index_not_accessible", e.INVALID_STATE = "invalid_state", e.PRIMARY_KEY_INFERENCE_FAILED = "primary_key_inference_failed", e.INDEX_PRIMARY_KEY_ALREADY_EXISTS = "index_primary_key_already_exists", e.DOCUMENTS_FIELDS_LIMIT_REACHED = "document_fields_limit_reached", e.MISSING_DOCUMENT_ID = "missing_document_id", e.INVALID_DOCUMENT_ID = "invalid_document_id", e.INVALID_CONTENT_TYPE = "invalid_content_type", e.MISSING_CONTENT_TYPE = "missing_content_type", e.PAYLOAD_TOO_LARGE = "payload_too_large", e.MISSING_PAYLOAD = "missing_payload", e.MALFORMED_PAYLOAD = "malformed_payload", e.NO_SPACE_LEFT_ON_DEVICE = "no_space_left_on_device", e.INVALID_STORE_FILE = "invalid_store_file", e.INVALID_RANKING_RULES = "missing_document_id", e.INVALID_REQUEST = "invalid_request", e.INVALID_FILTER = "invalid_filter", e.INVALID_SORT = "invalid_sort", e.INVALID_GEO_FIELD = "invalid_geo_field", e.BAD_REQUEST = "bad_request", e.DOCUMENT_NOT_FOUND = "document_not_found", e.INTERNAL = "internal", e.INVALID_API_KEY = "invalid_api_key", e.INVALID_API_KEY_DESCRIPTION = "invalid_api_key_description", e.INVALID_API_KEY_ACTIONS = "invalid_api_key_actions", e.INVALID_API_KEY_INDEXES = "invalid_api_key_indexes", e.INVALID_API_KEY_EXPIRES_AT = "invalid_api_key_expires_at", e.API_KEY_NOT_FOUND = "api_key_not_found", e.MISSING_PARAMETER = "missing_parameter", e.MISSING_AUTHORIZATION_HEADER = "missing_authorization_header", e.UNRETRIEVABLE_DOCUMENT = "unretrievable_document", e.MAX_DATABASE_SIZE_LIMIT_REACHED = "database_size_limit_reached", e.TASK_NOT_FOUND = "task_not_found", e.DUMP_PROCESS_FAILED = "dump_process_failed", e.DUMP_NOT_FOUND = "dump_not_found", e.DUPLICATE_INDEX_FOUND = "duplicate_index_found", e.MISSING_MASTER_KEY = "missing_master_key", e.INVALID_TASK_TYPES_FILTER = "invalid_task_types_filter", e.INVALID_TASK_STATUSES_FILTER = "invalid_task_statuses_filter", e.INVALID_TASK_CANCELED_BY_FILTER = "invalid_task_canceled_by_filter", e.INVALID_TASK_UIDS_FILTER = "invalid_task_uids_filter", e.INVALID_TASK_DATE_FILTER = "invalid_task_date_filter", e.MISSING_TASK_FILTERS = "missing_task_filters", e))(r || {});
-class l extends Error {
-  constructor(i, t, n, _) {
-    var c, I, s;
-    super(i), Object.setPrototypeOf(this, l.prototype), this.name = "MeiliSearchCommunicationError", t instanceof Response && (this.message = t.statusText, this.statusCode = t.status), t instanceof Error && (this.errno = t.errno, this.code = t.code), _ && (this.stack = _, this.stack = (c = this.stack) == null ? void 0 : c.replace(/(TypeError|FetchError)/, this.name), this.stack = (I = this.stack) == null ? void 0 : I.replace(
+class u extends Error {
+  constructor(e, s, i, r) {
+    var c, o, n;
+    super(e), Object.setPrototypeOf(this, u.prototype), this.name = "MeiliSearchCommunicationError", s instanceof Response && (this.message = s.statusText, this.statusCode = s.status), s instanceof Error && (this.errno = s.errno, this.code = s.code), r && (this.stack = r, this.stack = (c = this.stack) == null ? void 0 : c.replace(/(TypeError|FetchError)/, this.name), this.stack = (o = this.stack) == null ? void 0 : o.replace(
       "Failed to fetch",
-      `request to ${n} failed, reason: connect ECONNREFUSED`
-    ), this.stack = (s = this.stack) == null ? void 0 : s.replace("Not Found", `Not Found: ${n}`));
+      `request to ${i} failed, reason: connect ECONNREFUSED`
+    ), this.stack = (n = this.stack) == null ? void 0 : n.replace("Not Found", `Not Found: ${i}`));
   }
 }
-const h = class extends Error {
-  constructor(e, i) {
-    super(e.message), Object.setPrototypeOf(this, h.prototype), this.name = "MeiliSearchApiError", this.code = e.code, this.type = e.type, this.link = e.link, this.message = e.message, this.httpStatus = i;
+const d = class extends Error {
+  constructor(t, e) {
+    super(t.message), Object.setPrototypeOf(this, d.prototype), this.name = "MeiliSearchApiError", this.code = t.code, this.type = t.type, this.link = t.link, this.message = t.message, this.httpStatus = e;
   }
 };
-async function T(e) {
-  if (!e.ok) {
-    let i;
+async function y(t) {
+  if (!t.ok) {
+    let e;
     try {
-      i = await e.json();
+      e = await t.json();
     } catch {
-      throw new l(
-        e.statusText,
-        e,
-        e.url
+      throw new u(
+        t.statusText,
+        t,
+        t.url
       );
     }
-    throw new h(i, e.status);
+    throw new d(e, t.status);
   }
-  return e;
+  return t;
 }
-function o(e, i, t) {
-  throw e.name !== "MeiliSearchApiError" ? new l(
-    e.message,
-    e,
+function f(t, e, s) {
+  throw t.name !== "MeiliSearchApiError" ? new u(
+    t.message,
     t,
-    i
-  ) : e;
+    s,
+    e
+  ) : t;
 }
-class A extends Error {
-  constructor(i) {
-    super(i), Object.setPrototypeOf(this, A.prototype), this.name = "MeiliSearchError";
+class h extends Error {
+  constructor(e) {
+    super(e), Object.setPrototypeOf(this, h.prototype), this.name = "MeiliSearchError";
   }
 }
-class N extends Error {
-  constructor(i) {
-    super(i), Object.setPrototypeOf(this, N.prototype), this.name = "MeiliSearchTimeOutError";
+class l extends Error {
+  constructor(e) {
+    super(e), Object.setPrototypeOf(this, l.prototype), this.name = "MeiliSearchTimeOutError";
   }
 }
-const O = "0.30.0";
-function p(e) {
-  return Object.entries(e).reduce((i, t) => {
-    const [n, _] = t;
-    return _ !== void 0 && (i[n] = _), i;
+const w = "0.30.0";
+function E(t) {
+  return Object.entries(t).reduce((e, s) => {
+    const [i, r] = s;
+    return r !== void 0 && (e[i] = r), e;
   }, {});
 }
-function L(e) {
-  return e.startsWith("https://") || e.startsWith("http://") ? e : `http://${e}`;
+function S(t) {
+  return t.startsWith("https://") || t.startsWith("http://") ? t : `http://${t}`;
 }
-function R(e) {
-  return e.endsWith("/") || (e += "/"), e;
+function m(t) {
+  return t.endsWith("/") || (t += "/"), t;
 }
-function f(e) {
+function O(t) {
   try {
-    return e = L(e), e = R(e), e;
+    return t = S(t), t = m(t), t;
   } catch {
-    throw new A("The provided host is not valid.");
+    throw new h("The provided host is not valid.");
   }
 }
-function y(e) {
-  const i = "X-Meilisearch-Client", t = `Meilisearch JavaScript (v${O})`, n = "Content-Type";
-  e.headers = e.headers || {};
-  const _ = Object.assign({}, e.headers);
-  if (e.apiKey && (_.Authorization = `Bearer ${e.apiKey}`), e.headers[n] || (_["Content-Type"] = "application/json"), e.clientAgents && Array.isArray(e.clientAgents)) {
-    const c = e.clientAgents.concat(t);
-    _[i] = c.join(" ; ");
+function A(t) {
+  const e = "X-Meilisearch-Client", s = `Meilisearch JavaScript (v${w})`, i = "Content-Type";
+  t.headers = t.headers || {};
+  const r = Object.assign({}, t.headers);
+  if (t.apiKey && (r.Authorization = `Bearer ${t.apiKey}`), t.headers[i] || (r["Content-Type"] = "application/json"), t.clientAgents && Array.isArray(t.clientAgents)) {
+    const c = t.clientAgents.concat(s);
+    r[e] = c.join(" ; ");
   } else {
-    if (e.clientAgents && !Array.isArray(e.clientAgents))
-      throw new A(
-        `Meilisearch: The header "${i}" should be an array of string(s).
+    if (t.clientAgents && !Array.isArray(t.clientAgents))
+      throw new h(
+        `Meilisearch: The header "${e}" should be an array of string(s).
 `
       );
-    _[i] = t;
+    r[e] = s;
   }
-  return _;
+  return r;
 }
-class m {
-  constructor(i) {
-    this.headers = y(i);
+class k {
+  constructor(e) {
+    this.headers = A(e);
     try {
-      const t = f(i.host);
-      this.url = new URL(t);
+      const s = O(e.host);
+      this.url = new URL(s);
     } catch {
-      throw new A("The provided host is not valid.");
+      throw new h("The provided host is not valid.");
     }
   }
   async request({
-    method: i,
-    url: t,
-    params: n,
-    body: _,
+    method: e,
+    url: s,
+    params: i,
+    body: r,
     config: c
   }) {
-    const I = new URL(t, this.url);
-    if (n) {
-      const s = new URLSearchParams();
-      Object.keys(n).filter((a) => n[a] !== null).map((a) => s.set(a, n[a])), I.search = s.toString();
+    const o = new URL(s, this.url);
+    if (i) {
+      const n = new URLSearchParams();
+      Object.keys(i).filter((a) => i[a] !== null).map((a) => n.set(a, i[a])), o.search = n.toString();
     }
     try {
-      return await (await fetch(I.toString(), {
+      return await (await fetch(o.toString(), {
         ...c,
-        method: i,
-        body: JSON.stringify(_),
+        method: e,
+        body: JSON.stringify(r),
         headers: this.headers
-      }).then((E) => T(E))).json().catch(() => {
+      }).then((p) => y(p))).json().catch(() => {
       });
-    } catch (s) {
-      const a = s.stack;
-      o(s, a, I.toString());
+    } catch (n) {
+      const a = n.stack;
+      f(n, a, o.toString());
     }
   }
-  async post(i, t, n, _) {
+  async post(e, s, i, r) {
     return await this.request({
       method: "POST",
-      url: i,
-      body: t,
-      params: n,
-      config: _
+      url: e,
+      body: s,
+      params: i,
+      config: r
     });
   }
 }
-class U {
-  constructor(i, t) {
-    this.uid = t, this.httpRequest = new m(i);
+class j {
+  constructor(e, s) {
+    this.uid = s, this.httpRequest = new k(e);
   }
-  async search(i, t, n) {
-    const _ = `indexes/${this.uid}/search`;
+  async search(e, s, i) {
+    const r = `indexes/${this.uid}/search`;
     return await this.httpRequest.post(
-      _,
-      p({ q: i, ...t }),
+      r,
+      E({ q: e, ...s }),
       void 0,
-      n
+      i
     );
   }
 }
-class P {
-  constructor(i) {
-    this.config = i;
+class R {
+  constructor(e) {
+    this.config = e;
   }
-  index(i) {
-    return new U(this.config, i);
+  index(e) {
+    return new j(this.config, e);
   }
 }
 export {
-  r as ErrorStatusCode,
-  S as MatchingStrategies,
-  P as MeiliSearch,
-  h as MeiliSearchApiError,
-  l as MeiliSearchCommunicationError,
-  A as MeiliSearchError,
-  N as MeiliSearchTimeOutError,
-  O as PACKAGE_VERSION,
-  d as TaskStatus,
-  D as TaskTypes,
-  o as httpErrorHandler,
-  T as httpResponseErrorHandler
+  R as MeiliSearch,
+  d as MeiliSearchApiError,
+  u as MeiliSearchCommunicationError,
+  h as MeiliSearchError,
+  l as MeiliSearchTimeOutError,
+  w as PACKAGE_VERSION,
+  f as httpErrorHandler,
+  y as httpResponseErrorHandler
 };
